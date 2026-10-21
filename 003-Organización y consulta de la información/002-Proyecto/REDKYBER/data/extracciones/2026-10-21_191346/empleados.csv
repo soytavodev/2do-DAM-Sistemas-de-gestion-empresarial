@@ -1,0 +1,11 @@
+﻿nombre;apellidos;departamento;puesto;salario;identificador
+Ana;Martínez;Ingeniería;"Ingeniera aeronáutica";52000;1
+Carlos;García;Ingeniería;"Ingeniero de motores";55000;2
+Laura;Sánchez;Producción;"Jefa de producción";62000;3
+Miguel;Torres;Producción;"Técnico de montaje";34000;4
+Sofía;Navarro;Calidad;"Inspectora de calidad";41000;5
+David;Romero;Informática;"Desarrollador de software";48000;6
+Elena;Ruiz;Ventas;"Directora comercial";65000;7
+Javier;Moreno;Logística;"Responsable de logística";46000;8
+Marta;Vidal;Administración;Contable;38000;9
+Pablo;Ortega;I+D;Investigador;57000;10

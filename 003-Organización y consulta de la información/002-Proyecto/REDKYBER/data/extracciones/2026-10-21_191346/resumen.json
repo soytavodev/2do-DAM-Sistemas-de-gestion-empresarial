@@ -1,0 +1,15 @@
+{
+    "fecha": "2026-10-21T19:13:46+02:00",
+    "tablas": {
+        "clientes": 10,
+        "componentes": 9,
+        "empleados": 10,
+        "lineaspedido": 16,
+        "pedidos": 14,
+        "productos": 8,
+        "proveedores": 6
+    },
+    "facturacion": 5724000000,
+    "pedidos_sin_entregar": 11,
+    "duracion_ms": 1.68
+}

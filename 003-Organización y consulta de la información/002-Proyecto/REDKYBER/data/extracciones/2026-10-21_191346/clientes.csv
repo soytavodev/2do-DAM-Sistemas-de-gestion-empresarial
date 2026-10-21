@@ -1,0 +1,11 @@
+﻿nombre;pais;telefono;email;identificador
+Iberia;España;915874100;compras@iberia.es;1
+Lufthansa;Alemania;496986799;procurement@lufthansa.de;2
+"Air France";Francia;331415656;compras@airfrance.fr;3
+Emirates;"Emiratos Árabes Unidos";97147081111;purchasing@emirates.ae;4
+"Japan Airlines";Japón;81354603111;orders@jal.jp;5
+"Air Canada";Canadá;15143943333;procurement@aircanada.ca;6
+"Qatar Airways";Catar;97441445555;orders@qatarairways.qa;7
+"Singapore Airlines";Singapur;6565415314;purchasing@singaporeair.sg;8
+"Delta Airlines";"Estados Unidos";14047152600;procurement@delta.com;9
+"British Airways";"Reino Unido";442087385050;orders@ba.com;10

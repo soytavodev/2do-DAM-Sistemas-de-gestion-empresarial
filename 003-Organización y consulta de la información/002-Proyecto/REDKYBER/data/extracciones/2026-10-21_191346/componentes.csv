@@ -1,0 +1,10 @@
+﻿nombre;tipo;proveedor_id;precio;stock;identificador
+"Motor AX-900";Motor;1;12500000;24;1
+"Motor AX-1200";Motor;1;18500000;16;2
+"Panel fibra carbono";Estructura;2;85000;450;3
+"Sistema navegación NAV-X";Aviónica;3;450000;80;4
+"Radar WX-500";Aviónica;3;320000;60;5
+"Tren aterrizaje LG-200";Mecánica;4;780000;35;6
+"Asiento Business Premium";Interior;5;8500;900;7
+"Asiento Economy Light";Interior;5;2100;4500;8
+"Panel aluminio AL-700";Estructura;6;32000;1200;9

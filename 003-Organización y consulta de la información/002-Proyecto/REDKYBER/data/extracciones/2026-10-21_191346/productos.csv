@@ -1,0 +1,9 @@
+﻿nombre;tipo;precio;capacidad;autonomia;identificador
+"Aquila 100";Regional;89000000;90;3500;1
+"Aquila 200";"Medio alcance";125000000;160;6200;2
+"Aquila 300";"Medio alcance";148000000;190;7500;3
+"Condor 400";"Largo alcance";245000000;280;12000;4
+"Condor 500";"Largo alcance";295000000;340;14500;5
+"Condor 600";"Largo alcance";340000000;410;15500;6
+"Falcon Cargo 200";Carga;175000000;2;8500;7
+"Falcon Cargo 400";Carga;260000000;2;12500;8
