@@ -1,5 +1,6 @@
 let tablaActual = "";
 let clavePrimaria = "";
+let datosActuales = null;
 
 fetch("data/config.php")
 .then(respuesta => respuesta.json())
@@ -25,7 +26,7 @@ fetch("api/superapi.php?ruta=entidades")
     enlace.textContent = dato;
     enlace.onclick = function(evento){
       evento.preventDefault();
-      document.querySelectorAll("#entidades a").forEach(a => a.classList.remove("activo"));
+      document.querySelectorAll("#entidades a, #sistema button").forEach(a => a.classList.remove("activo"));
       enlace.classList.add("activo");
       cargarTabla(dato);
     };
@@ -39,13 +40,14 @@ function cargarTabla(tabla){
   .then(respuesta => respuesta.json())
   .then(datos => {
     clavePrimaria = datos.clavePrimaria;
+    datosActuales = datos;
     pintarTabla(datos);
   });
 }
 
 function pintarTabla(datos){
   let seccion = document.querySelector("section");
-  let html = '<div class="barra"><div><small>ENTIDAD</small><h2>'+escapar(tablaActual)+'</h2></div><button onclick="nuevoRegistro()">+ Nuevo registro</button></div>';
+  let html = '<div class="barra"><div><small>ENTIDAD</small><h2>'+escapar(tablaActual)+'</h2></div><div class="acciones-barra"><button onclick="nuevoRegistro()">+ Nuevo registro</button></div></div>';
 
   if(datos.columnas.length == 0){ seccion.innerHTML = html + '<p>No hay columnas.</p>'; return; }
 
@@ -63,6 +65,7 @@ function pintarTabla(datos){
   html += '</tbody></table></div>';
   if(datos.registros.length == 0) html += '<p class="vacio">Todavía no hay registros.</p>';
   seccion.innerHTML = html;
+  seccion.querySelector(".acciones-barra").prepend(RedkyberExportar.selector(formato => RedkyberExportar.descargar(formato, tablaActual, datosActuales.columnas, datosActuales.registros)));
 }
 
 function nuevoRegistro(){ cargarFormulario(null); }
@@ -78,7 +81,7 @@ function cargarFormulario(registro){
     datos.columnas.forEach(columna => {
       if(columna.pk) return;
       let valor = editando ? (registro[columna.name] ?? '') : '';
-      html += '<label>'+escapar(columna.name)+'<input name="'+escaparAtributo(columna.name)+'" value="'+escaparAtributo(valor)+'"></label>';
+      html += '<label>'+escapar(columna.name)+campoFormulario(columna, valor, datos.ajenas?.[columna.name])+'</label>';
     });
     html += '<button type="submit">'+(editando?'Guardar cambios':'Crear registro')+'</button></form>';
     document.querySelector("section").innerHTML = html;
@@ -111,6 +114,42 @@ function eliminarRegistro(id){
     cargarTabla(tablaActual);
   });
 }
+
+// Elige el control adecuado según el tipo de la columna
+function campoFormulario(columna, valor, opciones){
+  let nombre = 'name="'+escaparAtributo(columna.name)+'"';
+  let requerido = columna.notnull ? ' required' : '';
+  if(opciones){
+    let html = '<select '+nombre+requerido+'><option value="">— Selecciona —</option>';
+    opciones.forEach(o => html += '<option value="'+escaparAtributo(o.valor)+'"'+(String(o.valor)===String(valor)?' selected':'')+'>'+escapar(o.texto)+'</option>');
+    return html + '</select>';
+  }
+  let tipo = (columna.type || '').toUpperCase();
+  let n = columna.name.toLowerCase();
+  let atributos = 'type="text"';
+  if(tipo.includes('INT')) atributos = 'type="number" step="1"';
+  else if(tipo.includes('REAL') || tipo.includes('NUM')) atributos = 'type="number" step="any"';
+  else if(n.includes('fecha')) atributos = 'type="date"';
+  else if(n.includes('email')) atributos = 'type="email"';
+  else if(n.includes('telefono')) atributos = 'type="tel"';
+  return '<input '+atributos+' '+nombre+' value="'+escaparAtributo(valor)+'"'+requerido+'>';
+}
+
+// Módulos de sistema: dashboard, informes, consola SQL y rendimiento
+const vistas = {
+  dashboard: () => new RedkyberDashboard().render(),
+  informes: () => new RedkyberInformes().render(),
+  consola: () => new RedkyberConsola().render(),
+  rendimiento: () => new RedkyberRendimiento().render()
+};
+document.querySelectorAll("#sistema button").forEach(boton => {
+  boton.onclick = function(){
+    document.querySelectorAll("#entidades a, #sistema button").forEach(x => x.classList.remove("activo"));
+    boton.classList.add("activo");
+    vistas[boton.dataset.vista]();
+  };
+});
+document.querySelector('#sistema [data-vista="dashboard"]').click();
 
 function escapar(valor){ let d=document.createElement('div'); d.textContent=String(valor); return d.innerHTML; }
 function escaparAtributo(valor){ return escapar(valor).replaceAll('"','&quot;'); }

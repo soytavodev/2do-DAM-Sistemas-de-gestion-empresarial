@@ -7,12 +7,26 @@
   <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
-<header><h1>REDKYBER</h1></header>
+<header>
+  <h1>REDKYBER</h1>
+  <div id="sistema">
+    <button type="button" data-vista="dashboard">Dashboard</button>
+    <button type="button" data-vista="informes">Informes</button>
+    <button type="button" data-vista="consola">Consola SQL</button>
+    <button type="button" data-vista="rendimiento">Rendimiento</button>
+  </div>
+</header>
 <main>
   <nav id="modulos"></nav>
   <nav id="entidades"></nav>
-  <section><div class="vacio">Selecciona una entidad</div></section>
+  <section><div class="vacio">Cargando…</div></section>
 </main>
+<script src="nucleo/graficas.js"></script>
+<script src="nucleo/exportar.js"></script>
+<script src="nucleo/dashboard.js"></script>
+<script src="nucleo/informes.js"></script>
+<script src="nucleo/consola.js"></script>
+<script src="nucleo/rendimiento.js"></script>
 <script src="codigo.js"></script>
 </body>
 </html>
