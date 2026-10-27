@@ -1,1 +1,0 @@
-PHP se puede configurar
