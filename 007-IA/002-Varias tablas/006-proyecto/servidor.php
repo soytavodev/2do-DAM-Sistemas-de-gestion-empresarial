@@ -9,7 +9,7 @@ header("Content-Type: application/json; charset=utf-8");
 
 $archivoBD = __DIR__ . "/empresa.db";
 $ollamaURL = "http://localhost:11434/api/generate";
-$modelo = "granite4.1:8b";
+$modelo = "qwen2.5:1.5b";
 
 // ==========================================
 // FUNCIÓN PARA DEVOLVER JSON
