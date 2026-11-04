@@ -1,8 +1,8 @@
 <?php
 
-  require_once "formularios.php";
+  require_once "Formularios.php";
 
-  $json = file_get_contents("formularios.json");
+  $json = file_get_contents("formulario.json");
 
   $formulario = new Formularios($json);
 
