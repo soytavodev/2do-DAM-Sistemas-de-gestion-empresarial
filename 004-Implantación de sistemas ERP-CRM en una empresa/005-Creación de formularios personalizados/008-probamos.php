@@ -1,6 +1,7 @@
+
 <?php
 
-require_once '008-Formularios2.php';
+require_once 'Formularios2.php';
 
 $configuracion = [
     'accion' => 'procesar.php',

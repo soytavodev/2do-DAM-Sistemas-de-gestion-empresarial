@@ -1,5 +1,5 @@
 <?php
-	class FormulariosInicial{
+	class Formularios{
   	function __construct(){
     	
     }
