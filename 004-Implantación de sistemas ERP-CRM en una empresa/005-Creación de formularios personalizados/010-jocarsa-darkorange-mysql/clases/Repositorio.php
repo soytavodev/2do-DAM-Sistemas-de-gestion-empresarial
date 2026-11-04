@@ -24,7 +24,10 @@ final class Repositorio {
   $cols=$this->columnas($tabla);if(!$cols)throw new RuntimeException('Tabla desconocida');$campos=[];$valores=[];
   foreach($cols as $c){$n=$c['name'];if(str_contains($c['extra'],'auto_increment')||str_contains($c['extra'],'GENERATED'))continue;
    if(isset($archivos[$n])&&$archivos[$n]['error']===UPLOAD_ERR_OK){$v=file_get_contents($archivos[$n]['tmp_name']);if($v===false)throw new RuntimeException('Archivo no legible');$lim=$c['max_length']??match($c['data_type']){'tinyblob'=>255,'blob'=>65535,'mediumblob'=>16777215,'longblob'=>4294967295,default=>null};if($lim!==null&&strlen($v)>(int)$lim)throw new RuntimeException('Archivo demasiado grande: '.$n);}
-   elseif(array_key_exists($n,$datos)){$v=$datos[$n];if(is_array($v))$v=implode(',',$v);if($v==='')$v=null;if($v!==null&&in_array($c['data_type'],['datetime','timestamp'],true))$v=str_replace('T',' ',$v);}
+   elseif(array_key_exists($n,$datos)){$v=$datos[$n];if(is_array($v))$v=implode(',',$v);
+    // Campo vacío: si la columna tiene valor por defecto, no se envía y MySQL aplica el DEFAULT
+    // (antes se mandaba NULL y fallaba en columnas NOT NULL DEFAULT, como clientes.prioridad).
+    if($v===''){if($c['default_value']!==null)continue;$v=null;}if($v!==null&&in_array($c['data_type'],['datetime','timestamp'],true))$v=str_replace('T',' ',$v);}
    else continue;
    $campos[]=$n;$valores[]=$v;
   }
