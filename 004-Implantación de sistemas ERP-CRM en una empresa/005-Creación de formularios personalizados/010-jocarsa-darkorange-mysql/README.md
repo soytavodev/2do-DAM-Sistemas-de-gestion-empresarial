@@ -12,3 +12,11 @@ Credenciales predeterminadas de demostración: base `jocarsa`, usuario `jocarsa`
 La interfaz conserva los estilos darkorange y solicita vistas HTML renderizadas en servidor: `Tabla` y `Grafica` heredan de `Vista`; todos los formularios se producen con la clase `Formularios` entregada. Se recuperan tipos de columnas y relaciones mediante `information_schema`; se usa PDO con sentencias preparadas para inserciones. Las consultas de tablas están limitadas a 200 filas para evitar saturación.
 
 **Limitaciones:** no se ha probado contra un servidor MySQL real; el esquema proporcionado puede contener incompatibilidades con versiones de MariaDB. La interfaz actual permite consultar e insertar, no editar ni eliminar. Los controles de clave foránea presentan identificadores. Los tipos espaciales, JSON, BLOB y BIT requieren validación/conversión adicional para una edición completa. Las fechas, campos de texto y algunas opciones de `Formularios2.php` conservan el comportamiento de la clase original. La aplicación no incorpora autenticación ni CSRF: **no exponer en Internet sin añadir estas protecciones**. No se incluyen los módulos de edición de diagramas de Universo, que requieren una migración independiente de su almacenamiento SQLite.
+
+## Instalación en mi equipo (Gustavo)
+
+No uso el usuario `jocarsa`/`jocarsa` ni root para la aplicación: tiene su propio usuario MySQL, `sge_jocarsa`, con permisos solo sobre las bases `jocarsa` y `jocarsa_empresa`. El código del profesor no cambia, porque `clases/Conexion.php` ya lee las credenciales de las variables de entorno `JOCARSA_DB_*`.
+
+1. `sudo mysql < sql/jocarsa.sql` y `sudo mysql < ../jocarsa_empresa.sql` (crean las bases; root solo para instalar).
+2. `sudo mysql < sql/usuario-local.sql` (crea el usuario `sge_jocarsa`). Este archivo y `.env` guardan la contraseña y están en el `.gitignore`.
+3. `./arrancar.sh` carga `.env` y arranca `php -S localhost:8000`.

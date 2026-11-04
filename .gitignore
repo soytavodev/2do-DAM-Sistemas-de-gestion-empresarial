@@ -2,3 +2,7 @@
 # Copias automáticas de la extensión Local History de VS Code
 .history/
 *.history/
+
+# Credenciales locales de MySQL (usuario propio por ejercicio): nunca se suben
+.env
+usuario-local.sql
